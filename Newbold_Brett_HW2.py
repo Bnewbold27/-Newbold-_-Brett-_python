@@ -72,7 +72,9 @@ def semordnilap(file):
     """
     This function, semordnilap() accepts a file from the user(pointing to a 
     list of words) from the user and finds and prints all pairs of words that 
-    are semordnilaps to the screen.
+    are semordnilaps to the screen. A semordnilap is a word or phrase that spells 
+    a different word or phrase backwards. ("Semordnilap" is itself "palindromes" 
+    spelled backwards.)
 
     Parameters: 
     file - file provided by user 
@@ -123,7 +125,7 @@ def char_freq_table(filename):
     sorted and nicely formatted character frequency table to the screen.
 
     Parameters: 
-    file - string 
+    file - string inputted by the user 
 
     Returns:
     semordnilaps if it is indeed one
@@ -216,18 +218,21 @@ def speak_ICAO(text, ICAOpause = 1, WORDpause = 1):
                 
                 time.sleep(ICAOpause) # delays for that many seconds  
                 time.sleep(WORDpause) # delays for that many seconds
-                # user can input there own value for these parameters, if not
-                # the default is 1 second
+                # user can input their own value for these parameters when using
+                # the function, if not the default is 1 second
+
 
 # 5
 
 def hapax(file):
     """
     This function, hapax(), takes a file and returns all of its hapaxes while 
-    ignoring capitalization.
+    ignoring capitalization. A hapax legomenon (often abbreviated to hapax) is 
+    a word which occurs only once in either the written record of a language, 
+    the works of an author, or in a single text.
 
     Parameters: 
-    file - string
+    file - file inputted by the user
      
     Returns:
     hapaxes if the file has any
@@ -236,11 +241,12 @@ def hapax(file):
     """
 
     wordList = [] # Creates an empty list
-    # Fill the words list
+
     with open(file, 'r') as f:
     # Use "with" keyword so that the file is properly closed after the 
     # following indented lines. open() returns a file object, the mode 'r'
     # is used since filename will only be read 
+    
         for line in f:
             
             wordList += line.lower().split()
@@ -249,8 +255,10 @@ def hapax(file):
             # will keep building on itself
 
     hapaxes = [x for x in wordList if wordList.count(x) == 1]
-    # creates our hapaxes by seeking out words (x) in the wordList whose count 
-    # equals 1 (if they occur once)
+    # Now that we've built a list we can use a list comprehension to create our 
+    # hapaxes by seeking out words (x) in the wordList whose count equals 1 
+    # (if they occur once)
+    
     return hapaxes
 
 
@@ -278,18 +286,19 @@ def numbered(file):
     # following indented lines. open() returns a file object, the mode 'r'
     # is used since f1 will only be read 
     
-        with open(file + '.numbered', 'w') as f2:
+        with open('Numbered_' + file, 'w') as f2:
         # f2 is named as a new file, indicating it will be "numbered", the mode
         # 'w' is used since f2 will be opened for writing
             
             for num, str in enumerate(f1, start=1):
-            # enumerate() is a built in function that returns a tuple with a 
+            # enumerate() is a built in function that returns tuples with a 
             # count starting at 1 and string values obtained from iterating 
             # over f1 
             
                 f2.write('%d %s' % (num, str))
                 # takes our tuples and outputs their numbers and strings without
                 # parentheses
+
 
 #7
 
@@ -340,7 +349,7 @@ from random import randrange
 def guess():
     """
     This function, guess(), allows the user to play the "Guess the Number" game,
-    where the number to be guessed is randomly chosen between 1 and 20
+    where the number to be guessed is randomly chosen between 1 and 20.
      
     Returns:
     interaction in the terminal
@@ -348,26 +357,26 @@ def guess():
     bn-2016
     """
     
-    print("Hello! What is your name?") # shows up in terminal
+    print("Hello! What is your name?") # Shows up in terminal
     
-    name = input() # user types in their name
+    name = input() # User types in their name
 
     print('Well, %s, I am thinking of a number between 1 and 20.' % name)
     # The %s token is replaced by whatever I pass to the string after the % symbol.
     
-    num_guess = 0 # count for the number of guesses
+    num_guess = 0 # Count for the number of guesses
     
-    number = randrange(1,21) # random integer between 1 and 20 inclusive
+    number = randrange(1,21) # Random integer between 1 and 20 inclusive
 
     while True:
-        print('Take a guess.') # prints to the terminal
-        guess = input() # guess is defined to be what the user types
+        print('Take a guess.') # Prints to the terminal
+        guess = input() # Guess is defined to be what the user types
         num_guess += 1 # Every time while loop repeats the number of guesses 
                        # will build 
 
         if guess == number:
             print('Good job, %s! You guessed my number in %d guesses!' % (name, num_guess))
-            break # ends while loop if correct
+            break # Ends while loop if correct
             
         elif guess > number:             
             print('Your guess is too high.')
@@ -377,6 +386,7 @@ def guess():
             print('Your guess is too low.')
             # If the guess is less than the actual number
     
+
 
 #10 
 
@@ -420,7 +430,7 @@ def lingo(wordList):
             
                 if guess[guess.index(c)] == hidden[guess.index(c)] \
                     and guess.index(c) == hidden.index(c):
-                # guess.index(c) gets the position of c. Furthermore, 
+                # guess.index(c) gets the position of c in guess. Furthermore, 
                 # guess[guess.index(c)] outputs the actual letter. This is first
                 # checking if the letter in both words are the same AND if the
                 # postions are the same
@@ -484,10 +494,10 @@ def splitter(file):
     text = re.sub(r'(?<!Mr)(?<!Ms)(?<!Mrs)(?<!Dr)\.\s([A-Z])', r'.\n\1', text)
     # This will replace the pattern \.\s([A-Z]) (Periods followed by whitespace 
     # and then an upper case letter) by period, new line, and whatever letter
-    # was found. ?<!  will exclude the scenarios when a period is after Mr, Ms, 
-    # Mrs, or Dr. 
+    # was found (\1). 
+    # ?<! will exclude the scenarios when a period is after Mr, Ms, Mrs, or Dr. 
 
-    # text keeps refining with each step because it is calling the previous
+    # Text keeps refining with each step because it is calling the previous
     # text string with each sub() 
 
     print(text)
