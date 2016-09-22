@@ -2,8 +2,13 @@
 """
 Created on Thu Sep 15 19:13:22 2016
 
+Group D
+
 @author: bnew
 """
+
+#1
+
 
 import string # Allows us to use string.punctuation
 
@@ -106,6 +111,7 @@ with open(filename, 'r') as f:
             # Adds the refined string to our list in our For loop. 
     
     
+    
 #3
     
 filename = input('Enter file name: ') # Asks the user to input a file name
@@ -134,8 +140,8 @@ def char_freq_table(filename):
     # is used since filename will only be read
         
         str = [x for x in f.read() if x not in ['\n',' ']]
-        # Returns a string of characters from the file but excludes new lines (\n)
-        # and whitespaces (' ')
+        # Returns a string of characters from the file but excludes new lines 
+        # (\n) and whitespaces (' ')
 
         for char in str:
             # My guess is an arbitrary letter will be in the file more times 
@@ -148,8 +154,6 @@ def char_freq_table(filename):
                 # character appears in the string and furthermore stores them
                 # into the dictionary
 
-    # Now we display each character with their frequency 
-    # (in descending order)
         print('Characters frequency table:')
         
         myList = list(freq_table.items())
