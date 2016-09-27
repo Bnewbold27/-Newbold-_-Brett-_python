@@ -62,6 +62,7 @@ def char_freq(str):
     
     bn-2016
     """
+    
     freq = dict() # Creates dictionary with {keys : values}
 
     for char in str:
@@ -85,7 +86,8 @@ print(char_freq("abbabcbdbabdbdbabababcbcbab"))
 
  
 #3
- 
+##Prof G -  You should either make this a parameter to the function or define
+##Prof G - it inside of the function.
 
 key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u', 
        'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c', 
@@ -124,6 +126,8 @@ def caesar_cypher(str):
     return result
   
 print(caesar_cypher('Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!'))  #Dad joke
+##Prof G - lol, I tell jokes like that...
+
 print(caesar_cypher('This is funny!')) 
 
 
@@ -149,6 +153,8 @@ def correct(string):    #function used to input our parameter (string)
     bn-2016
     """
     
+    ##Prof G - Nice work!
+    
     compspace = re.sub(r'\s{2,}', ' ', string)
     # Method that takes pattern (first slot), replaces it with second slot 
     # anywhere in the string (third slot). The pattern \s{2,} is a whitespace 
@@ -170,7 +176,7 @@ print(correct('This   is        very funny  and    cool.Indeed!'))
 
 #5 
 
-
+##Prof G - Should be defined inside the function.
 suffix = ('o', 'ch', 's', 'sh', 'x', 'z') #defining suffixes         
 
 def make_3sg_form(str):    #create function which tests a parameter (verb)
@@ -214,7 +220,7 @@ print(make_3sg_form('access'))
 
 
 #6
-
+##Prof G - Should be defined inside the function.
 vowels = {'a','e','i','o','u'} # Defining vowels so it can search the ends of 
                                # verbs for them
 
@@ -257,10 +263,12 @@ def make_ing_form(str):
 #testing various verbs
 print(make_ing_form('lie'))
 print(make_ing_form('see'))  #unfortunate
+##Prof G - Ooops. What's wrong? I think reordering your logic may fix it.
 print(make_ing_form('move')) 
 print(make_ing_form('hug'))  #consonant-vowel-consonant
 print(make_ing_form('accelerate'))
 
+##Prof G - ee is a special case that your logic should consider
 # I tried to go in order listed, accounting for 'e' first then 'ie' second. 
 # However, "lie" would be swallowed by if str.endswith('e')
 # We could possibly fix "see" by searching for endswith('ee') and + 'ing' and
@@ -273,6 +281,9 @@ print(make_ing_form('accelerate'))
 
 import functools # For higher order functions: functions that act or return 
                  # other functions
+##Prof G - Another syntax option: from functools import reduce
+##Prof G - This creates reduce in the local namespace and eliminates the need
+##Prof G - to disambiguate (functools.reduce)
 
 def max_in_list(list): 
     """
@@ -334,6 +345,8 @@ def word_length_a(wordList):
 def word_length_b(wordlist): 
     
     return list(map(len, wordlist))  
+    ## Prof G -  Nice work! This is taking advantage of map, which is a 
+    ## Prof G -  generator function in Python 3.x
     # The function map() applies the function len (defined above) to every item 
     # of the itereable wordlist and furthermore creates a list using list()  
       
@@ -341,13 +354,14 @@ def word_length_b(wordlist):
 def word_length_c(wordlist): 
 
     return [len(word) for word in wordlist] 
+    ## Prof G -  Nice alternative using list comprehension
     # List comprehension that creates a list by evaluating len(word) for every 
     # word found in the wordlist and results in a list of word lengths
 
 
 print(word_length_a(['python', 'R', 'sas']))
 print(word_length_b(['python', 'R', 'sas']))
-print(word_length_c(['python', 'R', 'sas']))
+print(word_length_c(['python', 'R', 'sas', 'professor g']))
 
 
 #9
@@ -403,6 +417,7 @@ def filter_long_words(n, wordlist):
 
 print(filter_long_words(2, ['Georgetown', 'University', 'does', 'no', 'good']))  
 # Hopefully the program corrects this nonsense
+##Prof G - haha, great test case!
 
 
 
@@ -439,8 +454,10 @@ print(translate(['Merry', 'Christmas', 'and', 'HAPPY', 'NEW', 'YEAR']))
 
 
 #12
+## Prof G -  Should use a different name to avoid ambiguity with the built-in
+## Prof G -  map() function
 
-def map(function, iter):
+def mymap(function, iter):
     """
     This function, map(), makes an iterator that computes the function using
     arguments from each of the iterables. Stops when the shortest iterable is 
@@ -465,10 +482,14 @@ def map(function, iter):
         # once it is applied to the function
         
     return result
+
+## Prof G -  No test case here?  
+print(mymap())
+
+## Prof G -  Here's a simple one.
+print(mymap(lambda x:x+1, [1,2,3,4,5]))
     
-print(map())
-    
-def filter(function, iterable):  
+def myfilter(function, iterable):  
     """
     This function, filter(), returns an iterator yielding those item of iterable
     for which function(item) is true. If function is None, return the items 
@@ -518,6 +539,13 @@ def filter(function, iterable):
                 
         return result
         
+## Prof G -  No test case?
+## Prof G -  Here's a simple one, oops. what's wrong?
+print(myfilter(lambda x:(x>0), [-2, -1, 0, 1, 2]))
+
+## Prof G -  Try the built-in filter function
+print(list(filter(lambda x:(x>0), [-2, -1, 0, 1, 2])))
+
 
 def reduce(function, iterable, initial=None):
     """
@@ -553,4 +581,7 @@ def reduce(function, iterable, initial=None):
     # on the next item. 
      
     return result
-    
+   
+## Prof G -  No test case?
+## Prof G -  Here's a simple one
+print(reduce(lambda x,y:(x+y), [-2, -1, 0, 1, 2]))
