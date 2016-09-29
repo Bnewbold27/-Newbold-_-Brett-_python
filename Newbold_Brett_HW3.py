@@ -12,6 +12,11 @@ import pandas as pd
 import urllib.request
 import matplotlib.pyplot as plt
 
+"""
+1. Directly load the files from the internet into python and add the column
+   names using Python code instead of an editor.
+"""
+
 url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
 
 webpage = urllib.request.urlopen(url) # Opens the url and defines it as webpage
@@ -22,12 +27,23 @@ df = pd.read_csv(webpage, names=['sepal length in cm', 'sepal width in cm', \
     # a shortcut to use instead of writing pandas constantly. names is a parameter
     # that allows us to input a list of column names to use
     
+"""
+2. Using Pandas, display the first ten and last ten rows of the data.
+"""
+    
 print(df.head(10)) # Returns first 10 rows
 
 print(df.tail(10)) # Returns last 10 rows
 
+"""
+3. Using pandas, print simple location statistics
+"""
+
 print(df.describe()) # Generates various summary statistics 
 
+"""
+4. Write a function.. (see below) 
+"""
 
 columns = ['sepal length in cm', 'sepal width in cm', 'petal length in cm', \
     'petal width in cm']
@@ -66,6 +82,9 @@ def bin_sizes(integers):
     
 print(bin_sizes([10,20,30])) # Testing the function 
 
+"""
+5. Plot a box plot for each of the numeric columns
+"""
 
 df.plot.box() # Plots a box plot for each numeric column
 
@@ -76,6 +95,9 @@ plt.xticks(rotation=45) # The x-axis was too condensed (column names are long)
 plt.show() # Had to call this to avoid the box plot and bar chart showing up
            # on the same graph, it shows the box plot before considering the 
            # next plot
+"""
+6. Plot a bar chart for the nominal column
+"""
 
 df.groupby('class').size().plot.bar() # Creates a bar chart for our nominal
                                       # column (class) by grouping the names in
@@ -83,4 +105,4 @@ df.groupby('class').size().plot.bar() # Creates a bar chart for our nominal
                                       # how many times they appear, and making 
                                       # a corresponding bar chart
 
-plt.xticks(rotation = 0) # Bringing sexy back 
+plt.xticks(rotation = 0) # X-axis had vertical names so made them horizontal 
