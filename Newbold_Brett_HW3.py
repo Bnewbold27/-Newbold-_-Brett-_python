@@ -30,15 +30,18 @@ df = pd.read_csv(webpage, names=['sepal length in cm', 'sepal width in cm', \
 """
 2. Using Pandas, display the first ten and last ten rows of the data.
 """
-    
+
+print("\n First 10 rows: \n") # Exactly what I told my ex... "I need space" 
 print(df.head(10)) # Returns first 10 rows
 
+print("\n Last 10 rows: \n")
 print(df.tail(10)) # Returns last 10 rows
 
 """
 3. Using pandas, print simple location statistics
 """
 
+print("\n Summary Statistics: \n")
 print(df.describe()) # Generates various summary statistics 
 
 """
@@ -49,9 +52,9 @@ columns = ['sepal length in cm', 'sepal width in cm', 'petal length in cm', \
     'petal width in cm']
     # Creating a list of only the numeric columns
 
-def bin_sizes(integers):
+def hist_builder(integers):
     """
-    This function, bin_sizes() accepts a list of numbers that represent numbers 
+    This function, hist_builder() accepts a list of numbers that represent numbers 
     of bins and, using Pandas, plots a histogram for each of the numeric columns 
     at each bin size. For example, if the function is called with [10, 50, 100] 
     as bin sizes, the function plots 12 histograms (3 for each numeric
@@ -80,13 +83,13 @@ def bin_sizes(integers):
             
     return x
     
-print(bin_sizes([10,20,30])) # Testing the function 
+print(hist_builder([10,20,30])) # Testing the function 
 
 """
 5. Plot a box plot for each of the numeric columns
 """
 
-df.plot.box() # Plots a box plot for each numeric column
+df.plot.box(colormap = 'seismic_r') # Plots a box plot for each numeric column
 
 plt.xticks(rotation=45) # The x-axis was too condensed (column names are long)
                         # so I called this to make the x-axis more readable,
@@ -99,10 +102,10 @@ plt.show() # Had to call this to avoid the box plot and bar chart showing up
 6. Plot a bar chart for the nominal column
 """
 
-df.groupby('class').size().plot.bar() # Creates a bar chart for our nominal
-                                      # column (class) by grouping the names in
-                                      # the column, creating the size by counting 
-                                      # how many times they appear, and making 
-                                      # a corresponding bar chart
+df.groupby('class').size().plot.bar(colormap = 'Paired') 
+
+# Creates a bar chart for our nominal column (class) by grouping the names in
+# the column, creating the size by counting how many times they appear, and 
+# making a corresponding bar chart
 
 plt.xticks(rotation = 0) # X-axis had vertical names so made them horizontal 
