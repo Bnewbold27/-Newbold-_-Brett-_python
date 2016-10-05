@@ -91,6 +91,7 @@ print(hist_builder([10,20,30])) # Testing the function
 
 df.plot.box(colormap = 'seismic_r') # Plots a box plot for each numeric column
 
+##Prof G - Nice touch to rotate the labels!!
 plt.xticks(rotation=45) # The x-axis was too condensed (column names are long)
                         # so I called this to make the x-axis more readable,
                         # it rotates the names 45 degrees CCW  
