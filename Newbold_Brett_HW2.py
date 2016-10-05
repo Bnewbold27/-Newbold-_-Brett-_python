@@ -40,7 +40,8 @@ def is_palindrome(file):
     if refined == refined[::-1]: # If this newly refined string is equal to
                                  # itself in reverse order then return true
         return True
-
+##Prof G - Nice approach and great handling of mixed case. You could have also
+##Prof G - put this in a function.        
 with open(filename, 'r') as f: 
         # Use "with" keyword so that the file is properly closed after the 
         # following indented lines. open() returns a file object, the mode 'r'
@@ -93,6 +94,10 @@ def semordnilap(file):
     
     return refined
 
+##Prof G - This little definition cost me about an hour of time to discover.
+##Prof G - Essentially it overwrites the definition of the base funtion list()
+##Prof G - and subsequent calls to list fail (such as in you char_freq_table 
+##Prof G - function)
 list = [] # Creates an empty list
 
 with open(filename, 'r') as f: 
@@ -158,6 +163,8 @@ def char_freq_table(filename):
 
         print('Characters frequency table:')
         
+        ##Prof G - not sure why you try to call an object definiton here but
+        ##Prof G - it creates an error. See my comment above.
         myList = list(freq_table.items())
         # Using items() to iterate across our dictionary (freq_table) while 
         # making a list 
@@ -216,8 +223,12 @@ def speak_ICAO(text, ICAOpause = 1, WORDpause = 1):
                 # can find it. The mac will then speak the value of that char
                 # from the dictionary (ICAO word)
                 
-                time.sleep(ICAOpause) # delays for that many seconds  
-                time.sleep(WORDpause) # delays for that many seconds
+                time.sleep(ICAOpause) # delays for that many seconds between letters
+                
+                ##Prof G - The next line should be moved to the left to align
+                ##Prof G - with the for loop "for word in .." so the pause will 
+                ##Prof G - occur between words
+                time.sleep(WORDpause) # delays for that many seconds bewtween words
                 # user can input their own value for these parameters when using
                 # the function, if not the default is 1 second
 
@@ -285,7 +296,9 @@ def numbered(file):
     # Use "with" keyword so that the file is properly closed after the 
     # following indented lines. open() returns a file object, the mode 'r'
     # is used since f1 will only be read 
-    
+        ##Prof G - This does not work when the full path of the file is 
+        ##Prof G - included. You might try using two parameters (an input file
+        ##Prof G - and an output file). Works well otherwise.
         with open('Numbered_' + file, 'w') as f2:
         # f2 is named as a new file, indicating it will be "numbered", the mode
         # 'w' is used since f2 will be opened for writing
@@ -331,6 +344,10 @@ def average_word_length(file):
             # List comprehension that creates a new string (new_line) that gets
             # rid of the unwanted punctuation
             
+            ##Prof G - Need to coerce new_line into a string before the split
+            ##Prof G - method can be called. This breaks the function on my
+            ##Prof G - machine. See my comments above about the list object
+            ##Prof G - you defined.
             values = list(map(len, new_line.split()))
             # split() creates a list of the words in new_line
             # map() applies the len function to each word of the list to evaluate
@@ -373,7 +390,9 @@ def guess():
         guess = input() # Guess is defined to be what the user types
         num_guess += 1 # Every time while loop repeats the number of guesses 
                        # will build 
-
+        ##Prof G - Need to coerce input string to a number. You can do this with
+        ##Prof G - the int() function like this guess = int(input())
+        
         if guess == number:
             print('Good job, %s! You guessed my number in %d guesses!' % (name, num_guess))
             break # Ends while loop if correct
@@ -393,6 +412,10 @@ def guess():
     
 from random import randrange 
 
+##Prof G - I like your approach of randomly selecting a word to play against but
+##Prof G - the logic and scope do not quite work out. In play_lingo, you should
+##Prof G - call lingo with the word list. Then your should implement the while 
+##Prof G - loop around the for loop.
 def lingo(wordList):
     """
     This function, lingo(), allows the user find a hidden word by guessing, and 
@@ -459,6 +482,7 @@ lingo(['snake', 'times', 'tiger', 'black', 'ocean', 'lower'])
 
 import re # To use regular expressions
 
+##Prof G - Doesn't quite work on my file.
 def splitter(file):
     """
     This function, splitter(), takes the name of a text file and writes its 
