@@ -5,11 +5,7 @@ Created on Thu Sep 15 15:12:04 2016
 @author: bnew
 """
 
-#1
-
-dictionary = {"merry":"god", "christmas":"jul", "and":"och", 
-"happy":"gott", "new":"nytt", "year":"ar"}
-# Defining a dictionary where the strings can be in '' or ""                    
+#1                 
 
 def translate(list):
     """
@@ -27,7 +23,10 @@ def translate(list):
     
     bn-2016
     """
-    
+    dictionary = {"merry":"god", "christmas":"jul", "and":"och", 
+                  "happy":"gott", "new":"nytt", "year":"ar"}
+    # Defining a dictionary where the strings can be in '' or ""   
+
     wordList = []   # Defining wordList to be an empty list
     
     for word in list:   # For words found in the list that we input 
@@ -82,21 +81,8 @@ print(char_freq('mississippi'))
 print(char_freq("abbabcbdbabdbdbabababcbcbab"))
 
 
-
-
  
 #3
-##Prof G -  You should either make this a parameter to the function or define
-##Prof G - it inside of the function.
-
-key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u', 
-       'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c', 
-       'q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k',
-       'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S', 
-       'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A', 
-       'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I', 
-       'W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
-       # Defining a dictionary for our function to work with
 
 
 def caesar_cypher(str):     
@@ -112,6 +98,16 @@ def caesar_cypher(str):
     
     bn-2016
     """
+    
+    key = {'a':'n', 'b':'o', 'c':'p', 'd':'q', 'e':'r', 'f':'s', 'g':'t', 'h':'u', 
+       'i':'v', 'j':'w', 'k':'x', 'l':'y', 'm':'z', 'n':'a', 'o':'b', 'p':'c', 
+       'q':'d', 'r':'e', 's':'f', 't':'g', 'u':'h', 'v':'i', 'w':'j', 'x':'k',
+       'y':'l', 'z':'m', 'A':'N', 'B':'O', 'C':'P', 'D':'Q', 'E':'R', 'F':'S', 
+       'G':'T', 'H':'U', 'I':'V', 'J':'W', 'K':'X', 'L':'Y', 'M':'Z', 'N':'A', 
+       'O':'B', 'P':'C', 'Q':'D', 'R':'E', 'S':'F', 'T':'G', 'U':'H', 'V':'I', 
+       'W':'J', 'X':'K', 'Y':'L', 'Z':'M'}
+       # Defining a dictionary for our function to work with
+       
     result = "" # Defining variable to be an empty string
 
     for char in str:
@@ -126,13 +122,9 @@ def caesar_cypher(str):
     return result
   
 print(caesar_cypher('Pnrfne pvcure? V zhpu cersre Pnrfne fnynq!'))  #Dad joke
-##Prof G - lol, I tell jokes like that...
 
 print(caesar_cypher('This is funny!')) 
 
-
-
- 
  
 #4
  
@@ -173,11 +165,8 @@ print(correct('This   is        very funny  and    cool.Indeed!'))
 
 
 
-
 #5 
-
-##Prof G - Should be defined inside the function.
-suffix = ('o', 'ch', 's', 'sh', 'x', 'z') #defining suffixes         
+       
 
 def make_3sg_form(str):    #create function which tests a parameter (verb)
     """
@@ -192,6 +181,8 @@ def make_3sg_form(str):    #create function which tests a parameter (verb)
     
     bn-2016
     """
+
+    suffix = ('o', 'ch', 's', 'sh', 'x', 'z') #defining suffixes  
 
     if str.endswith('y'): # True if the string ends with y
         
@@ -220,9 +211,6 @@ print(make_3sg_form('access'))
 
 
 #6
-##Prof G - Should be defined inside the function.
-vowels = {'a','e','i','o','u'} # Defining vowels so it can search the ends of 
-                               # verbs for them
 
 def make_ing_form(str):
     """
@@ -237,9 +225,13 @@ def make_ing_form(str):
     
     bn-2016
     """
+    vowels = {'a','e','i','o','u'} # Defining vowels so it can search the ends of 
+                               # verbs for them
     if str.endswith('ie'): # True if string (verb) ends with 'ie'
         return str[:-2] + 'ying' # Takes a substring by erasing last two letters
                                  # of verb and replacing it with "ying"
+    if str.endswith('ee'): # True if string (verb) ends with 'ee'
+        return str + 'ing' # Takes the string and adds 'ing'
     
     elif str.endswith('e'): # True if string (verb) ends with 'e'
         return str[:-1] + 'ing' # Takes a substring by erasing last letter and 
@@ -262,28 +254,17 @@ def make_ing_form(str):
 
 #testing various verbs
 print(make_ing_form('lie'))
-print(make_ing_form('see'))  #unfortunate
-##Prof G - Ooops. What's wrong? I think reordering your logic may fix it.
+print(make_ing_form('see'))
 print(make_ing_form('move')) 
 print(make_ing_form('hug'))  #consonant-vowel-consonant
 print(make_ing_form('accelerate'))
-
-##Prof G - ee is a special case that your logic should consider
-# I tried to go in order listed, accounting for 'e' first then 'ie' second. 
-# However, "lie" would be swallowed by if str.endswith('e')
-# We could possibly fix "see" by searching for endswith('ee') and + 'ing' and
-# then search for endswith('e') and keep same rule (take away e and + 'ing')
-
 
 
 
 #7
 
-import functools # For higher order functions: functions that act or return 
+import functools.reduce # For higher order functions: functions that act or return 
                  # other functions
-##Prof G - Another syntax option: from functools import reduce
-##Prof G - This creates reduce in the local namespace and eliminates the need
-##Prof G - to disambiguate (functools.reduce)
 
 def max_in_list(list): 
     """
@@ -307,8 +288,7 @@ print(max_in_list([5,3,2,7,8,23,1,4]))
 
 # Defining and calling the function could be beneficial if our list is dependent 
 # on variables. We could run code to find out what the list is and simply 
-# print(max_in_list(list)) once we solve for the list. """
-
+# print(max_in_list(list)) once we solve for the list. 
 
 
 
@@ -423,9 +403,6 @@ print(filter_long_words(2, ['Georgetown', 'University', 'does', 'no', 'good']))
 
 #11
 
-# Defined dictionary
-dict = {"merry":"god", "christmas":"jul", "and":"och",
-        "happy":"gott", "new":"nytt", "year":"år"}
 
 def translate(English):
     """
@@ -440,7 +417,10 @@ def translate(English):
     
     bn-2016
     """  
-    
+    # Defined dictionary
+    dict = {"merry":"god", "christmas":"jul", "and":"och",
+        "happy":"gott", "new":"nytt", "year":"år"}
+        
     return list(map(lambda x: dict[x.lower()], English))   
     # map() will take each element of the list "English", find it as a key in 
     # the dictionary above, and return its value in Swedish. list() creates a 
@@ -454,8 +434,6 @@ print(translate(['Merry', 'Christmas', 'and', 'HAPPY', 'NEW', 'YEAR']))
 
 
 #12
-## Prof G -  Should use a different name to avoid ambiguity with the built-in
-## Prof G -  map() function
 
 def mymap(function, iter):
     """
@@ -483,11 +461,8 @@ def mymap(function, iter):
         
     return result
 
-## Prof G -  No test case here?  
-print(mymap())
-
-## Prof G -  Here's a simple one.
 print(mymap(lambda x:x+1, [1,2,3,4,5]))
+    
     
 def myfilter(function, iterable):  
     """
@@ -539,11 +514,7 @@ def myfilter(function, iterable):
                 
         return result
         
-## Prof G -  No test case?
-## Prof G -  Here's a simple one, oops. what's wrong?
-print(myfilter(lambda x:(x>0), [-2, -1, 0, 1, 2]))
 
-## Prof G -  Try the built-in filter function
 print(list(filter(lambda x:(x>0), [-2, -1, 0, 1, 2])))
 
 
@@ -582,6 +553,5 @@ def reduce(function, iterable, initial=None):
      
     return result
    
-## Prof G -  No test case?
-## Prof G -  Here's a simple one
+
 print(reduce(lambda x,y:(x+y), [-2, -1, 0, 1, 2]))
