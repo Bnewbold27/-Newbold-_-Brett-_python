@@ -60,14 +60,6 @@ with open(filename, 'r') as f:
     
 #2
 
-import string # Allows us to use string.punctuation
-
-filename = input('Enter the file name: ') # Asks the user to enter a file name
-
-disregard = string.punctuation + " " # string.punctuation will gather punctuation 
-                                     # characters so we disregard them later
-                                     # along with spaces 
-
 def semordnilap(file):
     """
     This function, semordnilap() accepts a file from the user(pointing to a 
@@ -84,41 +76,32 @@ def semordnilap(file):
     
     bn-2016
     """
-    
-    refined = [x for x in file.rstrip().lower() if x not in disregard]
-    # List comprehension that creates a new string (refined) that collects 
-    # characters from the file after making them lower case and strips the 
-    # whitespace characters at the end of string. However, if x is 
-    # found in disregard, it gets disregarded
-    
-    return refined
 
-list = [] # Creates an empty list
-
-with open(filename, 'r') as f: 
-        # Use "with" keyword so that the file is properly closed after the 
-        # following indented lines. open() returns a file object, the mode 'r'
-        # is used since filename will only be read 
+    f = open(file).read() # Opens file and returns a string containing all 
+    # characters in the file, stores the string as f 
     
-    for line in f:
+    lines = f.split('\n') # split spearates the string f based on the specified
+    # delimiter (newline)
+    
+    while lines: # will keep executing as long as boolean is True
+        x = lines[0] # x is assigned as the first entry from the list lines
+        lines.remove(x) # removes the first entry from the list lines and recreates
+        # lines without first entry
         
-        if semordnilap(line)[::-1] in list: 
-        # Scans the list for its counterpart
-            
-            print(semordnilap(line), semordnilap(line)[::-1])
-            # Prints the pair of words that are semordnilaps
-            
-        else:
-            list.append(semordnilap(line))
-            # Adds the refined string to our list in our For loop. 
+        if x[::-1] in lines: # if its reversed string is found in the remainder
+        # of the entries we will print both to the screen
+        
+            print (x + ' and ' + x[::-1] + ' are semordnilaps')
+
+# Test using a txt file                
+semordnilap('/Users/bnew/GitHub/Newbold_Brett_python/test.txt')
     
     
     
 #3
     
-filename = input('Enter file name: ') # Asks the user to input a file name
    
-def char_freq_table(filename):
+def char_freq_table():
     """
     This function, char_freq_table() accepts a file name from the user, builds 
     a frequency listing of the characters contained in the file, and prints a
@@ -128,50 +111,25 @@ def char_freq_table(filename):
     file - string inputted by the user 
 
     Returns:
-    semordnilaps if it is indeed one
+    frequency list of the characteres in the file
     
     bn-2016
-    """
+    """  
+    file = input('Enter the filename: ') # allows user to input a filename
     
-    freq_table = dict() # Creates an empty dictionary where we can display each 
-                        # character with it's frequency
+    d = dict() # creating an empty dictionary to store frequencies 
     
-    with open(filename, 'r') as f:
-    # Use "with" keyword so that the file is properly closed after the 
-    # following indented lines. open() returns a file object, the mode 'r'
-    # is used since filename will only be read
+    for char in open(file,'r').read(): # for each character found in the file
+    
+        d[char] = d.get(char,0) + 1 # creates the definition in our dictionary
+         # the character that is found in the file is placed on the left side 
+         # of definition and get() returns the value of the given key, for every 
+         # occurence it will add one to its value 
         
-        str = [x for x in f.read() if x not in ['\n',' ']]
-        # Returns a string of characters from the file but excludes new lines 
-        # (\n) and whitespaces (' ')
+    return d # returns the dictionary at the end of for loop
+ 
+print(char_freq_table())
 
-        for char in str:
-            # My guess is an arbitrary letter will be in the file more times 
-            # than not so lets begin with that scenario
-            if char in freq_table: 
-                freq_table[char] += 1 # Adds 1 to itself for each repetition
-            else:
-                freq_table[char] = 1
-                # This if-else creates the value based on how many times the 
-                # character appears in the string and furthermore stores them
-                # into the dictionary
-
-        print('Characters frequency table:')
-        
-        myList = list(freq_table.items())
-        # Using items() to iterate across our dictionary (freq_table) while 
-        # making a list 
-        
-        for char in sorted(myList, key=lambda x: x[1], reverse=True):
-        # sorted() calls on each list element of myList using the key function.
-        # It will sort them in ascending order by the value of each character.
-        # reverse = True then makes it descending order
-           
-           print(char[0], freq_table[char[0]])
-           # prints first character and its corresponding frequency utilizing
-           # the dictionaries created above
-
-char_freq_table(filename)
 
 
 #4
@@ -216,8 +174,8 @@ def speak_ICAO(text, ICAOpause = 1, WORDpause = 1):
                 # can find it. The mac will then speak the value of that char
                 # from the dictionary (ICAO word)
                 
-                time.sleep(ICAOpause) # delays for that many seconds  
-                time.sleep(WORDpause) # delays for that many seconds
+                time.sleep(ICAOpause) # delays for that many seconda between letters
+        time.sleep(WORDpause) # delays for that many seconds between words
                 # user can input their own value for these parameters when using
                 # the function, if not the default is 1 second
 
@@ -286,7 +244,7 @@ def numbered(file):
     # following indented lines. open() returns a file object, the mode 'r'
     # is used since f1 will only be read 
     
-        with open('Numbered_' + file, 'w') as f2:
+        with open(file, 'w') as f2:
         # f2 is named as a new file, indicating it will be "numbered", the mode
         # 'w' is used since f2 will be opened for writing
             
@@ -303,11 +261,11 @@ def numbered(file):
 #7
 
 
-from string import punctuation
+import re # import regular expressions
 
-def average_word_length(file):
+def avg_word_length(file):
     """
-    This function, average_word_length(), calculates the average word length of 
+    This function, avg_word_length(), calculates the average word length of 
     a text stored in a file (i.e the sum of all the lengths of the word tokens 
     in the text, divided by the number of word tokens)
 
@@ -319,26 +277,21 @@ def average_word_length(file):
     
     bn-2016
     """
+    x = 0.0 # creating a count to store the length of the words 
     
-    with open(file, 'r') as f:
-    # Use "with" keyword so that the file is properly closed after the 
-    # following indented lines. open() returns a file object, the mode 'r'
-    # is used since f will only be read 
+    f = open(file) # opens the file inputted by user and stores it as f
     
-        for line in f:
-           
-            new_line = [x for x in line if x not in punctuation]
-            # List comprehension that creates a new string (new_line) that gets
-            # rid of the unwanted punctuation
-            
-            values = list(map(len, new_line.split()))
-            # split() creates a list of the words in new_line
-            # map() applies the len function to each word of the list to evaluate
-            # the length of each word
-            # list() creates a list of these values
-            
-    print( sum(values) / len(values) )
-    # to calculate the average 
+    wordlist = re.findall('\w+', f.read()) # findall() matches all occurences of
+    # words and stores as a list of strings in wordlist
+    
+    for word in wordlist: # for each word in wordList
+        x += len(word) # x will count the total sum of the length of words
+    return x/len(wordlist) # the total sum will be divided by the amount of
+    # words in wordlist to give us the average
+
+#  Testing with a txt file
+avg_word_length('/Users/bnew/GitHub/Newbold_Brett_python/test.txt')
+
 
 
 #8
@@ -370,7 +323,7 @@ def guess():
 
     while True:
         print('Take a guess.') # Prints to the terminal
-        guess = input() # Guess is defined to be what the user types
+        guess = int(input()) # Guess is defined to be what the user types
         num_guess += 1 # Every time while loop repeats the number of guesses 
                        # will build 
 
@@ -390,10 +343,8 @@ def guess():
 
 #10 
 
-    
-from random import randrange 
 
-def lingo(wordList):
+def lingo(word):
     """
     This function, lingo(), allows the user find a hidden word by guessing, and 
     in return receive two kinds of clues: 1) the characters that are fully 
@@ -402,7 +353,6 @@ def lingo(wordList):
     wrong position. 
     
     Parameters: 
-    wordList - word bank to generate a random word
     guess - string (word) of 5 characters (letters)
     
     Returns: string of characters with each letter unchanged, with (), 
@@ -412,53 +362,37 @@ def lingo(wordList):
     bn-2016
     """
 
-    hidden = wordList[randrange(0, len(wordList))]
-     # randrange() takes a random integer from 0 to len(wordList), in our case
-     # (0,6) excluding 6. Afterwards, wordlist[] then defines hidden as the word 
-     # in wordList using that integer position of the random integer
-
-
-    def play_lingo(guess): # This function will take the users guess and output
-                           # a clue 
-        
-        clue = '' # Begins as an empty string
-  
-        for c in guess: # For character (letter) in the user's guess
-            c = c.lower() # Just in case they tYpe in an UppeRcase letter
-            
-            if c in hidden: # If the letter is in the hidden word 
-            
-                if guess[guess.index(c)] == hidden[guess.index(c)] \
-                    and guess.index(c) == hidden.index(c):
-                # guess.index(c) gets the position of c in guess. Furthermore, 
-                # guess[guess.index(c)] outputs the actual letter. This is first
-                # checking if the letter in both words are the same AND if the
-                # postions are the same
-                    
-                    clue += '[%s]' % c # The c's that satisfy these two conditions
-                                       # will be placed inside []
+    guess = input('Enter a 5 letter word: ')
+    
+    while guess != word: # will keep executing as long as boolean is true,
+    # so as long as the users guess does not equal the "hidden" word
+        clue = '' # creating an empty string to store the output
+        for j, i in enumerate(guess): # runs multiple counters in a single loop
+            if i in word: # if the same letter is found in word
+                if guess[j]== word[j]: # if the location of the letter is the same
+                    clue += '[' + i + ']' # put it in brackets
                 else:
-                    clue += '(%s)' % c # The c's in hidden but failed to meet the
-                                       # two conditions will be placed in ()
-                    
-            else: 
-                clue += c # If c is not in hidden it remains as itself. The +=
-                          # will take care of the accumulating string as each c
-                          # goes through this "flow chart" 
-        
-        print('Clue: ' + clue) # Displays the clue
-
-    while True: # Needed to add so program keeps running 
-        guess = input('Enter a 5 letter word: ') # Prompts user to input word
-        play_lingo(guess) # Our function gets called up to the big leagues
-
-lingo(['snake', 'times', 'tiger', 'black', 'ocean', 'lower'])
+                    clue += '(' + i + ')' # if the same letter is found but 
+                    # in a different location
+            else:
+                clue += i # if it was not found at all in the hidden word
+        print ('Clue:' + clue) # outputs the clue after running through the 
+        # for loop 
+        guess = input('Please input another 5 letter guess: ') # creates a new
+        # guess for the while loop to work with
+    print ('Congrats! You guessed correctly!') # if boolean is false from while
+    # loop (if guess == word) then it is time to celebrate at the new MGM casino
+    # at National Harbor
+            
+# Testing, testing
+lingo('tiger')
+lingo('lingo')
 
 
 #11
 
-import re # To use regular expressions
-
+import re # import regular expressions to use split()
+    
 def splitter(file):
     """
     This function, splitter(), takes the name of a text file and writes its 
@@ -479,25 +413,12 @@ def splitter(file):
         
         str = f.read() # string is defined to be the contents of the file
 
-    text = re.sub(r'\n', '', str)
-    # Replaces the pattern \n (newlines) with null, therefore it initially 
-    # removes new lines
-    
-    text = re.sub(r'\?\s', '?\n', text)
-    # This will replace question marks followed by a space (\?\s) with a new
-    # line after the question mark (?\n).
-    
-    text = re.sub(r'!\s', '!\n', text)
-    # This will replace exclamation points followed by a space (!\s) with a new
-    # line after the exclamation point (!\n).
+    for i in re.split(r'(?<=[^Mr|Mrs|Dr][.?!])\s(?=[A-Z])', str): # A lot going 
+    # on here, it will create a new line if any character from [.?!] is followed
+    # by \s (whitespace) and a capital letter (?=[A-Z]) using "lookahead assertion", 
+    # ?<=[][] is a "Positive lookbehind assertion" will make sure to avoid the case
+    # of Mr., Mrs., or Dr. 
+        print (i) 
 
-    text = re.sub(r'(?<!Mr)(?<!Ms)(?<!Mrs)(?<!Dr)\.\s([A-Z])', r'.\n\1', text)
-    # This will replace the pattern \.\s([A-Z]) (Periods followed by whitespace 
-    # and then an upper case letter) by period, new line, and whatever letter
-    # was found (\1). 
-    # ?<! will exclude the scenarios when a period is after Mr, Ms, Mrs, or Dr. 
-
-    # Text keeps refining with each step because it is calling the previous
-    # text string with each sub() 
-
-    print(text)
+# Here comes the splitter down the middle 
+splitter('copy file here')
